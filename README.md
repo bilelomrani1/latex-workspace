@@ -9,7 +9,9 @@ This repository contains an example of project code for automatic dependencies m
 
 In a typical project, the general workflow is given by the following chart.
 
-![organizational_chart](https://i.ibb.co/b6xSVyq/organizational-chart.png)
+<p align="center">
+  <img src="https://i.ibb.co/b6xSVyq/organizational-chart.png" alt="Organizational chart"/>
+</p>
 
 1. A numerical experiment is set up based on some input data (e.g. training dataset, experimental measurements etc.) and configuration files (e.g. hyperparameters).
 2. Scripts produce intermediate files (e.g. checkpoints etc.) that can be used by other scripts. Final figures and tables are also scripted for reproducibility and automatic management purposes.
