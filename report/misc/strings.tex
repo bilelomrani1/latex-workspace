@@ -1,0 +1,233 @@
+%% ********************************************************************
+%%%% English
+%% ********************************************************************
+
+% Cover page
+\providecommand*{\authorstring}{Author}
+\providecommand*{\supervisedby}{supervised by}
+
+% Tables of contents
+\providecommand*{\localchaptocname}{Contents}
+\providecommand*{\localparttocname}{Contents}
+\providecommand*{\listofacronymsname}{List of Acronyms}
+\providecommand*{\listofappendixname}{Table of Appendices}
+\providecommand*{\listofalgorithmsname}{List of Algorithms}
+\providecommand*{\listofprogname}{List of Listings}
+
+\renewcommand{\appendixprefix}{Appendix~}
+\renewcommand{\chapterprefix}{Chapter~}
+\renewcommand{\partprefix}{Part~}
+\renewcommand{\sectionprefix}{}
+\renewcommand{\subsectionprefix}{}
+\renewcommand{\subsubsectionprefix}{}
+\renewcommand{\paragraphprefix}{}
+\renewcommand{\subparagraphprefix}{}
+
+\providecommand*{\listofloaentryname}{Algorithm}
+\providecommand*{\listoflolentryname}{Listing}
+
+\DefineBibliographyStrings{english}{%
+    backrefpage  = {\seename~p.}, % for single page number
+    backrefpages = {\seename~p.}, % for multiple page numbers
+    references = {References and additional reading},
+    bibliography = {Bibliography}
+}
+
+% Custom Environments
+\providecommand*{\notesname}{Notes}
+\providecommand*{\seenextpagename}{Continued on next page}
+
+% Theorems
+\providecommand*{\theoremname}{Theorem}
+\providecommand*{\propositionname}{Proposition}
+\providecommand*{\corollaryname}{Corollary}
+\providecommand*{\lemmaname}{Lemma}
+\providecommand*{\definitionname}{Definition}
+\providecommand*{\assumptionname}{Assumption}
+\providecommand*{\optassumptionname}{Optional Condition}
+\providecommand*{\remarkname}{Remark}
+\providecommand*{\examplename}{Example}
+
+% Cleveref cross-references
+
+\if@cref@capitalise
+
+\crefname{definition}{Definition}{Definitions}
+\Crefname{definition}{Definition}{Definitions}
+
+\crefname{theorem}{Theorem}{Theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+
+\crefname{proposition}{Proposition}{Propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+
+\crefname{lemma}{Lemma}{Lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+
+\crefname{corollary}{Corollary}{Corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+
+\crefname{assumption}{Assumption}{Assumptions}
+\Crefname{assumption}{Assumption}{Assumptions}
+
+\crefname{optassumption}{Optional Assumption}{Optional Assumptions}
+\Crefname{optassumption}{Optional Assumption}{Optional Assumptions}
+
+\crefname{remark}{Remark}{Remarks}
+\Crefname{remark}{Remark}{Remarks}
+
+\crefname{example}{Example}{Examples}
+\Crefname{example}{Example}{Examples}
+
+\addto\extrasenglish{
+    \def\partautorefname{Part}
+    \def\chapterautorefname{Chapitre}
+    \def\sectionautorefname{Section}
+}
+
+\else
+
+\crefname{definition}{definition}{definitions}
+\Crefname{definition}{Definition}{Definitions}
+
+\crefname{theorem}{theorem}{theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+
+\crefname{proposition}{proposition}{propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+
+\crefname{lemma}{lemma}{lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+
+\crefname{corollary}{corollary}{corollaries}
+\Crefname{corollary}{Corollary}{Corollaries}
+
+\crefname{assumption}{assumption}{assumptions}
+\Crefname{assumption}{Assumption}{Assumptions}
+
+\crefname{optassumption}{optional assumption}{optional assumptions}
+\Crefname{optassumption}{Optional assumption}{Optional assumptions}
+
+\crefname{remark}{remark}{remarks}
+\Crefname{remark}{Remark}{Remarks}
+
+\crefname{example}{example}{examples}
+\Crefname{example}{Example}{Examples}
+
+\fi
+
+% Misc
+\providecommand*{\draftname}{Draft}
+\providecommand*{\revisionname}{Revision}
+
+
+%% ********************************************************************
+%%%% Français
+%% ********************************************************************
+
+% Page de garde
+\addto\captionsfrench{\renewcommand{\authorstring}{Auteur}}
+\addto\captionsfrench{\renewcommand{\supervisedby}{encadrés par}}
+
+% Table des matières
+\addto\captionsfrench{\renewcommand{\localchaptocname}{Table des matières}}
+\addto\captionsfrench{\renewcommand{\localparttocname}{Table des matières}}
+\addto\captionsfrench{\renewcommand{\listofacronymsname}{Liste des acronymes}}
+\addto\captionsfrench{\renewcommand{\listofappendixname}{Table des annexes}}
+\addto\captionsfrench{\renewcommand{\listofalgorithmsname}{Liste des algorithmes}}
+\addto\captionsfrench{\renewcommand{\listofprogname}{Liste des programmes}}
+\addto\captionsfrench{\renewcommand{\appendixprefix}{Annexe}}
+\addto\captionsfrench{\renewcommand{\chapterprefix}{Chapitre}}
+\addto\captionsfrench{\renewcommand{\partprefix}{Partie}}
+\addto\captionsfrench{\renewcommand{\chaptername}{Chapitre}}
+\addto\captionsfrench{\renewcommand{\tablename}{{Tableau}}}
+\addto\captionsfrench{\renewcommand{\appendixname}{{Annexe}}}
+\addto\captionsfrench{\renewcommand{\listofloaentryname}{Algorithme}}
+\addto\captionsfrench{\renewcommand{\listoflolentryname}{Programme}}
+\DefineBibliographyStrings{french}{%
+    backrefpage  = {\seename~p.}, % for single page number
+    backrefpages = {\seename~p.}, % for multiple page numbers
+    references = {Références},
+    bibliography = {Bibliographie}
+}
+\addto\captionsfrench{\renewcommand{\glspluralsuffix}{}}
+
+
+% Captions
+\addto\captionsfrench{\renewcommand{\listingscaption}{Programme}}
+\addto\captionsfrench{\floatname{algorithm}{Algorithme}}
+\addto\captionsfrench{\renewcommand{\nomname}{Liste des symboles}}
+
+
+% Cleveref
+\addto\captionsfrench{\crefname{listing}{programme}{programmes}}
+\addto\captionsfrench{\Crefname{listing}{Programme}{Programmes}}
+
+% Environnements personnalisés
+\addto\captionsfrench{\renewcommand*{\notesname}{Notes}}
+\addto\captionsfrench{\renewcommand*{\seenextpagename}{Voir page suivante}}
+
+\if@cref@capitalise
+
+\addto\captionsfrench{\crefname{definition}{Définition}{Définitions}}
+\addto\captionsfrench{\Crefname{definition}{Définition}{Définitions}}
+\addto\captionsfrench{\crefname{proposition}{Proposition}{Propositions}}
+\addto\captionsfrench{\Crefname{proposition}{Proposition}{Propositions}}
+\addto\captionsfrench{\crefname{corollary}{Corollaire}{Corollaires}}
+\addto\captionsfrench{\Crefname{corollary}{Corollaire}{Corollaires}}
+\addto\captionsfrench{\crefname{theorem}{Théorème}{Théorèmes}}
+\addto\captionsfrench{\Crefname{theorem}{Théorème}{Théorèmes}}
+\addto\captionsfrench{\crefname{lemma}{Lemme}{Lemmes}}
+\addto\captionsfrench{\Crefname{lemma}{Lemme}{Lemmes}}
+\addto\captionsfrench{\crefname{assumption}{Hypothèse}{Hypothèses}}
+\addto\captionsfrench{\Crefname{assumption}{Hypothèse}{Hypothèses}}
+\addto\captionsfrench{\crefname{remark}{Remarque}{Remarques}}
+\addto\captionsfrench{\Crefname{remark}{Remarque}{Remarques}}
+\addto\captionsfrench{\crefname{example}{Exemple}{Exemples}}
+\addto\captionsfrench{\Crefname{example}{Exemple}{Exemples}}
+
+\else
+
+\addto\captionsfrench{\crefname{definition}{définition}{définitions}}
+\addto\captionsfrench{\Crefname{definition}{Définition}{Définitions}}
+\addto\captionsfrench{\crefname{proposition}{proposition}{propositions}}
+\addto\captionsfrench{\Crefname{proposition}{Proposition}{Propositions}}
+\addto\captionsfrench{\crefname{corollary}{corollaire}{corollaires}}
+\addto\captionsfrench{\Crefname{corollary}{Corollaire}{Corollaires}}
+\addto\captionsfrench{\crefname{theorem}{théorème}{théorèmes}}
+\addto\captionsfrench{\Crefname{theorem}{Théorème}{Théorèmes}}
+\addto\captionsfrench{\crefname{lemma}{lemme}{lemmes}}
+\addto\captionsfrench{\Crefname{lemma}{Lemme}{Lemmes}}
+\addto\captionsfrench{\crefname{assumption}{hypothèse}{hypothèses}}
+\addto\captionsfrench{\Crefname{assumption}{Hypothèse}{Hypothèses}}
+\addto\captionsfrench{\crefname{remark}{remarque}{remarques}}
+\addto\captionsfrench{\Crefname{remark}{Remarque}{Remarques}}
+\addto\captionsfrench{\crefname{example}{exemple}{exemples}}
+\addto\captionsfrench{\Crefname{example}{Exemple}{Exemples}}
+
+\fi
+
+% Algorithmic
+\addto\captionsfrench{\renewcommand{\algorithmicfunction}{\textbf{fonction}}}
+\addto\captionsfrench{\renewcommand{\algorithmicrequire}{\textbf{Entrées :}}}
+\addto\captionsfrench{\renewcommand{\algorithmicensure}{\textbf{Sorties :}}}
+\addto\captionsfrench{\renewcommand{\algorithmicend}{\textbf{fin}}}
+\addto\captionsfrench{\renewcommand{\algorithmicif}{\textbf{si}}}
+\addto\captionsfrench{\renewcommand{\algorithmicthen}{\textbf{alors}}}
+\addto\captionsfrench{\renewcommand{\algorithmicelse}{\textbf{sinon}}}
+\addto\captionsfrench{\renewcommand{\algorithmicfor}{\textbf{pour}}}
+\addto\captionsfrench{\renewcommand{\algorithmicforall}{\textbf{pour tout}}}
+\addto\captionsfrench{\renewcommand{\algorithmicdo}{\textbf{faire}}}
+\addto\captionsfrench{\renewcommand{\algorithmicwhile}{\textbf{tant que}}}
+\addto\captionsfrench{\renewcommand{\algorithmicloop}{\textbf{boucler}}}
+\addto\captionsfrench{\renewcommand{\algorithmicrepeat}{\textbf{répéter}}}
+\addto\captionsfrench{\renewcommand{\algorithmicuntil}{\textbf{jusqu'à}}}
+\addto\captionsfrench{\renewcommand{\algorithmicreturn}{\textbf{renvoyer}}}
+\addto\captionsfrench{\renewcommand{\algorithmicprint}{\textbf{afficher}}}
+\addto\captionsfrench{\renewcommand{\algorithmictrue}{\textbf{vrai}}}
+\addto\captionsfrench{\renewcommand{\algorithmicfalse}{\textbf{faux}}}
+\addto\captionsfrench{\renewcommand{\algorithmicwith}{\textbf{avec}}}
+
+% Misc
+\addto\captionsfrench{\renewcommand{\draftname}{Brouillon}}
+\addto\captionsfrench{\renewcommand{\revisionname}{Révision}}

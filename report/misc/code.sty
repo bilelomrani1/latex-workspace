@@ -1,0 +1,27 @@
+\RequirePackage[usefamily={jl,julia,juliacon}]{pythontex}
+\RequirePackage{etoolbox}
+\RequirePackage{silence}
+\WarningFilter{PythonTeX}{A "listing" environment}
+
+\AtBeginDocument{
+    \setpythontexcontext{
+        normalsize=\f@size,
+        textwidth=\the\textwidth,
+        textheight=\the\textheight
+    }
+}
+
+\setpythontexoutputdir{_pythontex}
+\setpythontexpygopt{style=workspace}
+
+% remove empty lines from juliaconsole
+% from: https://github.com/gpoore/pythontex/issues/98#issuecomment-318078264
+\AtBeginEnvironment{juliaconsole}{%
+	\def\FV@@PreProcessLine{%
+		\expandafter\ifstrempty\expandafter{\FV@Line}{}{%
+			\FV@StepLineNo
+			\FV@Gobble
+			\expandafter\FV@ProcessLine\expandafter{\FV@Line}}}%
+}
+
+\newcommand{\inputsafe}[1]{\IfFileExists{#1}{\input{#1}}{\missingfigure{#1}\@warning{File `#1' not found}}}

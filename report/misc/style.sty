@@ -1,0 +1,970 @@
+% ********************************************************************
+% Custom Section commands
+% ********************************************************************
+
+\let\oldappendix\appendix
+\let\appendix\relax
+
+\ifbool{workspace@nochapters}{
+  \DeclareSectionCommand[%
+    style=section,%
+    level=1,
+    tocindent=1.5em,
+    tocnumwidth=6em,
+  ]{appendix}
+  \def\toclevel@appendix{1}
+  \workspace@InitializeSec{appendix}{1}
+  \etocsetlevel{appendix}{1}
+}{
+  \DeclareSectionCommand[%
+    style=chapter,%
+    level=0,
+    tocindent=1.5em,
+    tocnumwidth=6em,
+  ]{appendix}
+  \def\toclevel@appendix{0}
+  \workspace@InitializeSec{appendix}{0}
+  \etocsetlevel{appendix}{0}
+}
+
+\InitializeDividedList{lof}{appendix}
+\InitializeDividedList{lot}{appendix}
+\InitializeDividedList{loa}{appendix}
+\InitializeDividedList{lol}{appendix}
+
+\workspace@PatchEntriesInToc{appendix}
+\preto\appendix{\def\toggletoc{appendix}}
+
+
+% ********************************************************************
+% Fonts
+% ********************************************************************
+
+\renewcommand{\UrlFont}{\color{urlcolor}\rmfamily}
+
+% ********************************************************************
+% Headers and footers
+% ********************************************************************
+
+\clearpairofpagestyles
+
+\renewcommand{\markstyle}[1]{\scshape\small\switchOsf#1}
+\renewcommand{\pagemarkstyle}[1]{\color{black}#1}
+
+\ifbool{workspace@nochapters}{
+    \automark[subsection]{section}
+    \cfoot{\pagemarkstyle{\pagemark}}}
+  {
+    \automark[section]{chapter}
+    \lehead{\mbox{\llap{{\pagemarkstyle{\pagemark}}\kern1em\vline}\hspace{1em}\markstyle{\headmark}\hfil}}
+    \rohead{\mbox{\hfil{\markstyle{\headmark}\hspace{1em}}\rlap{\vline\kern1em{\pagemarkstyle{\pagemark}}}}}
+}
+
+% ********************************************************************
+% Colors
+% ********************************************************************
+
+\definecolor{linkcolor}{RGB}{0,94,131}
+\definecolor{urlcolor}{cmyk}{0, 0.87, 0.68, 0.32}
+\definecolor{citecolor}{RGB}{0,128,0}
+
+\definecolor{halfgray}{gray}{0.55}
+\definecolor{maroon}{cmyk}{0, 0.87, 0.68, 0.32}
+
+\definecolor{color1}{RGB}{15,135,192}
+\definecolor{color2}{RGB}{60,201,167}
+\definecolor{color3}{RGB}{155,228,164}
+\definecolor{color4}{RGB}{223,252,148}
+\definecolor{color5}{RGB}{255,227,132}
+\definecolor{color6}{RGB}{255,170,84}
+\definecolor{color7}{RGB}{255,89,45}
+\definecolor{color8}{RGB}{229,0,68}
+
+
+% ********************************************************************
+% Minted Palette
+% ********************************************************************
+
+\usemintedstyle{workspace}
+
+
+% ********************************************************************
+% Margins
+% ********************************************************************
+
+\renewcommand{\marginlinestyle}{\itshape\small}
+
+
+% ********************************************************************
+% Divided lists of
+% ********************************************************************
+
+% List of figures
+\workspace@DeclareDividedList{lof}{part}
+\ifbool{workspace@nochapters}{\relax}{\workspace@DeclareDividedList{lof}{chapter}}
+\workspace@DeclareDividedList{lof}{section}
+
+% List of tables
+\workspace@DeclareDividedList{lot}{part}
+\ifbool{workspace@nochapters}{\relax}{\workspace@DeclareDividedList{lot}{chapter}}
+\workspace@DeclareDividedList{lot}{section}
+
+% List of algorithms
+\workspace@DeclareDividedList{loa}{part}
+\ifbool{workspace@nochapters}{\relax}{\workspace@DeclareDividedList{loa}{chapter}}
+\workspace@DeclareDividedList{loa}{section}
+
+% List of listings
+\workspace@DeclareDividedList{lol}{part}
+\ifbool{workspace@nochapters}{\relax}{\workspace@DeclareDividedList{lol}{chapter}}
+\workspace@DeclareDividedList{lol}{section}
+
+
+% ********************************************************************
+% TOC Settings
+% ********************************************************************
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{1}
+\renewcommand{\localtocpartdepth}{section}
+\renewcommand{\localtocchapterdepth}{subsection}
+
+
+% ********************************************************************
+% Numbering
+% ********************************************************************
+
+\numberwithin{equation}{section}
+
+
+% ********************************************************************
+% Heading style
+% ********************************************************************
+
+\renewcommand*{\partprefixsep}{ }
+\renewcommand*{\appendixprefixsep}{. }
+\ifbool{workspace@nochapters}{}{
+  \renewcommand*{\chapterprefixsep}{. }
+}
+\renewcommand{\partnumberstyle}[1]{\Large\switchOsf#1}
+\renewcommand{\partstyle}[1]{\color{maroon}\normalfont\scshape\switchOsf#1}
+\setkomafont{part}{\LARGE}
+\ifbool{workspace@nochapters}{
+  \renewcommand{\appendixstyle}[1]{\large\bfseries\switchOsf#1}
+}{
+    \renewcommand{\chapternumberstyle}[1]{#1}
+    \addtokomafont{chapterprefix}{\Large\bfseries\switchOsf}
+    \renewcommand{\chapterstyle}[1]{\bfseries\huge\switchOsf#1}
+    \renewcommand{\appendixstyle}[1]{\bfseries\huge\switchOsf#1}
+}
+\renewcommand{\sectionstyle}[1]{\large\bfseries\switchOsf#1}
+\renewcommand{\subsectionstyle}[1]{\normalsize\bfseries\switchOsf#1}
+\renewcommand{\subsubsectionstyle}[1]{\normalsize\bfseries\itshape\switchOsf#1}
+\renewcommand{\paragraphstyle}[1]{\normalfont\normalsize\bfseries\switchOsf#1}
+\renewcommand{\subparagraphstyle}[1]{\normalfont\normalsize\bfseries\switchOsf#1}
+\renewcommand{\nomenclheaderstyle}[1]{\bfseries#1}
+
+
+% ********************************************************************
+% Separators for floats
+% ********************************************************************
+
+\renewcommand{\floatseparator}{~|~}
+\DeclareCaptionLabelSeparator{sep}{\floatseparator}
+\captionsetup{labelsep=sep}
+
+
+% ********************************************************************
+% Caption setup
+% ********************************************************************
+
+\setcapindent{1em}
+\DeclareCaptionFont{osf}{\switchOsf}
+\captionsetup{format=hang,font=normal,labelfont={osf,bf},labelformat=default}
+\captionsetup[table]{belowskip=4pt,position=above}
+\captionsetup[sub]{labelfont=rm} 
+
+
+% ********************************************************************
+% Entries format in TOC
+% ********************************************************************
+
+\renewcommand{\partentryformat}[1]{\bfseries\large\scshape\color{maroon}\switchOsf#1}
+\ifbool{workspace@nochapters}{
+  \renewcommand{\appendixentryformat}[1]{\bfseries\switchOsf#1}
+  \renewcommand{\sectionentryformat}[1]{\bfseries\switchOsf#1}
+}{
+  \renewcommand{\appendixentryformat}[1]{\bfseries\switchOsf#1}
+  \renewcommand{\chapterentryformat}[1]{\bfseries\switchOsf#1}
+  \renewcommand{\sectionentryformat}[1]{\switchOsf#1}
+}
+\renewcommand{\subsectionentryformat}[1]{\switchOsf#1}
+\renewcommand{\subsubsectionentryformat}[1]{\switchOsf#1}
+\renewcommand{\paragraphentryformat}[1]{\switchOsf#1}
+\renewcommand{\subparagraphentryformat}[1]{\switchOsf#1}
+\renewcommand{\descriptionlabel}[1]{\hspace*{\labelsep}\bfseries\switchOsf#1}
+
+\renewcommand{\partentrypageformat}{\bfseries\large\scshape\color{maroon}\switchOsf}
+\ifbool{workspace@nochapters}{
+  \renewcommand{\appendixentrypageformat}{\bfseries\switchOsf}
+  \renewcommand{\sectionentrypageformat}{\bfseries\switchOsf}
+}{
+  \renewcommand{\appendixentrypageformat}{\bfseries\switchOsf}
+  \renewcommand{\chapterentrypageformat}{\bfseries\switchOsf}
+}
+\renewcommand{\sectionentrypageformat}{\switchOsf}
+\renewcommand{\subsectionentrypageformat}{\switchOsf}
+\renewcommand{\subsubsectionentrypageformat}{\switchOsf}
+\renewcommand{\paragraphentrypageformat}{\switchOsf}
+\renewcommand{\subparagraphentrypageformat}{\switchOsf}
+
+
+% ********************************************************************
+%  TOC styles
+% ********************************************************************
+
+\KOMAoptions{toc=bibliography}
+\ifbool{workspace@nochapters}{\KOMAoptions{toc=sectionentrywithdots}}{\KOMAoptions{toc=chapterentrywithdots}}
+
+\renewcommand{\localtocstyle}[1]{#1}
+
+\setlength{\indenttablefigure}{2cm}
+\setlength{\indenttabletable}{2cm}
+\setlength{\indenttablealgorithm}{2cm}
+\setlength{\indenttablelisting}{2cm}
+
+\setlength{\numseptablefigure}{1.5em}
+\setlength{\numseptabletable}{1.5em}
+\setlength{\numseptablealgorithm}{1.5em}
+\setlength{\numseptablelisting}{1.5em}
+
+\setlength{\numseptocpart}{1.5em}
+\ifbool{workspace@nochapters}{
+  \setlength{\numseptocappendix}{1.5em}
+}{
+  \setlength{\numseptocappendix}{0.5em}
+  \setlength{\numseptocchapter}{0.5em}
+}
+\setlength{\numseptocsection}{1.5em}
+\setlength{\numseptocsubsection}{1.5em}
+\setlength{\numseptocsubsubsection}{1.5em}
+\setlength{\numseptocparagraph}{1.5em}
+\setlength{\numseptocsubparagraph}{1.5em}
+
+\setlength{\indenttocpart}{0em}
+\ifbool{workspace@nochapters}{
+  \setlength{\indenttocappendix}{0em}
+  \setlength{\indenttocsection}{0em}
+  \setlength{\indenttocsubsection}{1em}
+  \setlength{\indenttocsubsubsection}{1.5em}
+  \setlength{\indenttocparagraph}{2em}
+  \setlength{\indenttocsubparagraph}{2em}
+}{
+  \setlength{\indenttocappendix}{0em}
+  \setlength{\indenttocchapter}{0em}
+  \setlength{\indenttocsection}{1em}
+  \setlength{\indenttocsubsection}{2.5em}
+  \setlength{\indenttocsubsubsection}{2.5em}
+  \setlength{\indenttocparagraph}{2.5em}
+  \setlength{\indenttocsubparagraph}{2.5em}
+}
+
+\setlength{\beforeskiptocpart}{1.5em plus 1pt}
+\ifbool{workspace@nochapters}{
+  \setlength{\beforeskiptocappendix}{0.3em plus 1pt}
+}{
+  \setlength{\beforeskiptocappendix}{0.7em plus 1pt}
+  \setlength{\beforeskiptocchapter}{0.7em plus 1pt}
+}
+\setlength{\beforeskiptocsection}{0.1em plus 1pt}
+\setlength{\beforeskiptocsubsection}{0pt plus .2pt}
+\setlength{\beforeskiptocsubsubsection}{0pt plus .2pt}
+\setlength{\beforeskiptocparagraph}{0pt plus .2pt}
+\setlength{\beforeskiptocsubparagraph}{0pt plus .2pt}
+
+\renewcommand{\figurepagenumberformat}{\switchOsf}
+\renewcommand{\figureentrynumberformat}{\switchOsf\entrynumberwithprefix{lof}}
+
+\renewcommand{\tablepagenumberformat}{\switchOsf}
+\renewcommand{\tableentrynumberformat}{\switchOsf\entrynumberwithprefix{lot}}
+
+\renewcommand{\algorithmpagenumberformat}{\switchOsf}
+\renewcommand{\algorithmentrynumberformat}{\switchOsf\entrynumberwithprefix{loa}}
+
+\renewcommand{\listingpagenumberformat}{\switchOsf}
+\renewcommand{\listingentrynumberformat}{\switchOsf\entrynumberwithprefix{lol}}
+
+
+% ********************************************************************
+% Sections format
+% ********************************************************************
+
+\ifbool{workspace@nochapters}{}{
+\KOMAoptions{chapterprefix=true, appendixprefix=true}
+\renewcommand\chapterlinesformat[3]{%
+      \Ifstr{#2}{}{\global\togglefalse{numberedchapter}}%
+      {\global\toggletrue{numberedchapter}\chapterstyle{#2}}
+       \chapterstyle{#3}}
+}
+
+\renewcommand*{\appendixformat}{\appendixname~\theappendix}
+\renewcommand*{\sectionformat}{\thesection.\enskip}
+\renewcommand*{\partformat}{\partnumberstyle{\partname~\thepart}}
+% Hack Babel French
+\xpatchcmd{\FB@partname}{\csname ordinal\romannumeral\value{part}\endcsname\space\partnameord\FB@emptypart}{\partnumberstyle{\csname ordinal\romannumeral\value{part}\endcsname\space\partnameord\FB@emptypart}}{}{}
+
+
+% ********************************************************************
+% Section Mark Format (in header)
+% ********************************************************************
+
+\ifbool{workspace@nochapters}{\relax}{
+    \renewcommand*{\chaptermarkformat}{\chapterprefix~\thechapter.\enskip}
+}
+
+\renewcommand*{\appendixmarkformat}{\appendixprefix~\theappendix.\enskip}
+\renewcommand*{\sectionmarkformat}{%
+    \iftoggle{numberedsection}{\thesection.\enskip}{\enskip}
+}
+\renewcommand*{\subsectionmarkformat}{%
+    \iftoggle{numberedsubsection}{\thesubsection.\enskip}{\enskip}
+}
+
+
+% ********************************************************************
+% Section commands (no style, only layout)
+% ********************************************************************
+
+\RedeclareSectionCommand[indent=0em, afterskip=-0.5em]{paragraph}
+\RedeclareSectionCommand[indent=2em]{subparagraph}
+\ifbool{workspace@nochapters}{}{\RedeclareSectionCommand[afterskip=50pt]{chapter}}
+
+
+% ********************************************************************
+% Index/glossary setup
+% ********************************************************************
+
+\makeindex[
+    columns=2,
+    title=\indexname, 
+    options= -s misc/index_style.ist]
+\indexsetup{level=\chapter*}
+\setglossarysection{chapter}
+
+% ********************************************************************
+% Tables setup
+% ********************************************************************
+
+\renewcommand{\theadstyle}{\bfseries}
+\renewcommand{\theadalign}{\relax}
+
+
+% ********************************************************************
+% Markup
+% ********************************************************************
+
+\setkomafont{author}{}
+\setkomafont{captionlabel}{\bfseries\switchOsf}
+\setkomafont{date}{}
+\setkomafont{dedication}{}
+\setkomafont{descriptionlabel}{\bfseries}
+\setkomafont{dictum}{}
+\setkomafont{dictumauthor}{}
+\setkomafont{disposition}{}
+\setkomafont{footnote}{}
+\setkomafont{footnotelabel}{\switchOsf}
+\setkomafont{footnotereference}{\switchOsf}
+\setkomafont{footnoterule}{}
+\setkomafont{labelinglabel}{\switchOsf}
+\setkomafont{labelingseparator}{}
+\setkomafont{minisec}{\switchOsf}
+\setkomafont{pagefoot}{}
+\setkomafont{pageheadfoot}{\color{halfgray}}
+\setkomafont{pagenumber}{\normalsize\switchOsf}
+\setkomafont{pagination}{\normalsize}
+\setkomafont{publishers}{}
+\setkomafont{subject}{}
+\setkomafont{subtitle}{\normalfont\scshape\Large}
+\setkomafont{title}{\huge\bfseries\rmfamily}
+\setkomafont{titlehead}{}
+
+
+% ********************************************************************
+% Page style
+% ********************************************************************
+
+\ifbool{workspace@nochapters}{}{
+    \renewcommand*{\chapterpagestyle}{empty}
+    \KOMAoptions{cleardoublepage=empty}
+    \renewcommand*{\partpagestyle}{empty}
+}
+\renewcommand*{\titlepagestyle}{empty}
+\renewcommand*{\indexpagestyle}{plain}
+
+
+% ********************************************************************
+% Nomenclature
+% ********************************************************************
+
+% Space for nomenclature items
+\setlength{\nomlabelwidth}{1.7cm}
+
+% Titles space
+\setlength{\nomgroupstartsep}{\smallskipamount}
+\setlength{\nomgrouptitlesep}{\medskipamount}
+
+% Nomenclature indent
+\setlength{\nomindent}{\the\parindent}
+
+% Nomenclature spacing between items
+\setlength{\nomitemsep}{-0.5\parsep}
+
+
+% ********************************************************************
+% Glossary
+% ********************************************************************
+
+\newglossarystyle{namedescunit}{%
+  \renewenvironment{theglossary}%
+    {\begin{longtable}{p{2.43cm}p{\linewidth-2.43cm-6\tabcolsep}}}%
+    {\end{longtable}}%
+
+ \renewcommand*{\glossaryheader}{}%
+ \renewcommand*{\glsgroupheading}[1]{}%
+  \renewcommand{\glossentry}[2]{%
+    \glstarget{##1}{\bfseries\glossentryname{##1}} &
+    \glossentrydesc{##1}\tabularnewline
+  }%
+  \renewcommand{\subglossentry}[3]{\glossentry{##2}{##3}}%
+  \renewcommand*{\glsgroupskip}{}%
+}
+
+\setglossarystyle{namedescunit}
+
+
+% ********************************************************************
+% Fix Minion Pro Kerning
+% ********************************************************************
+
+\RequirePackage{silence}
+\WarningFilter{microtype}{kerning codes list}
+\SetExtraKerning[ name     = french-custom,
+context  = french,
+unit     = space   ]
+{ encoding = * }
+{
+    ' ={100,200},
+    ’ ={100,200}
+}
+
+
+% ********************************************************************
+% Mutlicolumns
+% ********************************************************************
+
+\setlength{\columnsep}{15pt}
+
+
+% ********************************************************************
+% Tables Setup
+% ********************************************************************
+
+\AtBeginEnvironment{tabular}{%
+    \renewcommand{\arraystretch}{1.2}
+    \figureversion{lf,tab}
+    \sisetup{text-rm={\figureversion{tab,lf}}}
+    \setlength{\tabcolsep}{6pt}
+    \centering
+}
+
+\AtBeginEnvironment{longtable}{%
+    \renewcommand{\arraystretch}{1.2}
+    \figureversion{lf,tab}
+    \sisetup{text-rm={\figureversion{tab,lf}}}
+    \setlength{\tabcolsep}{6pt}
+    \centering
+}
+
+
+\AtBeginEnvironment{tabularx}{%
+    \figureversion{lf,tab}
+    \sisetup{text-rm={\figureversion{tab,lf}}}
+    \setlength{\tabcolsep}{6pt}
+    \centering
+}
+
+\AtBeginEnvironment{xltabular}{%
+    \renewcommand{\arraystretch}{1.2}
+    \figureversion{lf,tab}
+    \sisetup{text-rm={\figureversion{tab,lf}}}
+    \setlength{\tabcolsep}{6pt}
+    \centering
+}
+
+
+% ********************************************************************
+% Enumitem style
+% ********************************************************************
+
+\setlist[itemize]{topsep=5pt plus 1pt minus 1pt}
+\setlist[description]{font=\bfseries}
+\setlist[enumerate]{font=\switchOsf}
+\newlist{outline}{description}{1}
+\setlist[outline]{style=unboxed,leftmargin=0pt,itemsep=3pt}
+\newlist{proofcases}{itemize}{1}
+\setlist[proofcases]{style=unboxed,leftmargin=4pt, label=\labelitemi}
+
+\renewcommand\labelitemi{\color{halfgray}$\bullet$}
+\renewcommand{\descriptionlabel}[1]{\hspace\labelsep\upshape\bfseries#1:~}
+
+
+% ********************************************************************
+% Theorems
+% ********************************************************************
+
+\declaretheoremstyle[
+    spaceabove=\topsep, 
+    spacebelow=\topsep,
+    bodyfont=\normalfont,
+    headfont=\bfseries,
+    notefont=\bfseries, 
+    headpunct={},
+    notebraces={(}{)},
+    postheadspace=0.5em,
+    headformat=\NAME~\NUMBER\NOTE
+]{workspacedefinition}
+
+\declaretheoremstyle[
+    spaceabove=\topsep, 
+    spacebelow=\topsep,
+    bodyfont=\itshape,
+    headfont=\bfseries,
+    notefont=\bfseries, 
+    headpunct={},
+    notebraces={(}{)},
+    postheadspace=0.5em,
+    headformat=\NAME~\NUMBER\NOTE
+]{workspacetheorem}
+
+\declaretheoremstyle[
+    spaceabove=\topsep, 
+    spacebelow=\topsep,
+    bodyfont=\normalfont,
+    headfont=\bfseries,
+    notefont=\itshape\bfseries, 
+    headpunct={},
+    postheadspace=0.5em,
+    notebraces={(}{)},
+    headformat=\NAME~\NUMBER\NOTE
+]{workspacelemma}
+
+\declaretheoremstyle[
+    spaceabove=\topsep, 
+    spacebelow=\topsep,
+    bodyfont=\normalfont,
+    headfont=\bfseries,
+    notefont=\itshape\bfseries, 
+    headpunct={},
+    postheadspace=0.5em,
+    notebraces={(}{)},
+    headformat=\NAME~\NUMBER\NOTE
+]{workspaceassumption}
+
+\declaretheoremstyle[
+    spaceabove=\topsep, 
+    spacebelow=\topsep,
+    bodyfont=\normalfont,
+    headfont=\bfseries,
+    notefont=\itshape\bfseries, 
+    headpunct={},
+    postheadspace=0.5em,
+    notebraces={(}{)},
+    headformat=\NAME~\NUMBER\NOTE
+]{workspaceoptassumption}
+
+\declaretheoremstyle[
+    spaceabove=\topsep, 
+    spacebelow=\topsep,
+    bodyfont=\normalfont,
+    headfont=\bfseries,
+    notefont=\itshape\bfseries, 
+    headpunct={},
+    postheadspace=0.5em,
+    notebraces={(}{)},
+    headformat=\NAME~\NUMBER\NOTE
+]{workspaceremark}
+
+\let\proof\relax
+\let\endproof\relax
+\declaretheoremstyle[
+    spaceabove=\topsep, 
+    spacebelow=15pt plus 1pt minus 1pt, 
+    headfont=\small\itshape, 
+    bodyfont=\small,
+    postheadspace=1em, 
+    qed=$\blacksquare$, 
+    headpunct={.}]{workspaceproof}
+\declaretheorem[name={\proofname},style=workspaceproof,unnumbered]{proof}
+
+% Pushing the QED to the left
+\xpatchcmd{\qed}{\hfill}{}{}{}
+
+\newcommand{\dtname}[1]{%
+  \expandafter\noexpand
+  \expandafter\noexpand
+  \expandafter\noexpand
+  \csname Cref@#1@name\endcsname
+}
+
+\declaretheorem[
+  name=\dtname{definition},
+  within=section,
+  style=workspacedefinition
+]{definition}
+
+\declaretheorem[
+  name=\dtname{proposition},
+  within=section,
+  style=workspacedefinition
+]{proposition}
+
+\declaretheorem[
+  name=\dtname{corollary},
+  within=section,
+  style=workspacedefinition
+]{corollary}
+
+\declaretheorem[
+  name=\dtname{theorem},
+  within=section,
+  style=workspacetheorem
+]{theorem}
+
+\declaretheorem[
+  name=\dtname{lemma},
+  within=section,
+  style=workspacelemma
+]{lemma}
+
+\declaretheorem[
+  name=\dtname{assumption},
+  within=section,
+  style=workspaceassumption
+]{assumption}
+
+\declaretheorem[
+  name=\dtname{optassumption},
+  within=section,
+  style=workspaceoptassumption
+]{optassumption}
+
+\declaretheorem[
+  name=\dtname{remark},
+  unnumbered,
+  style=workspaceremark
+]{remark}
+
+\declaretheorem[
+  name=\dtname{example},
+  unnumbered,
+  style=workspaceremark
+]{example}
+
+\AtBeginEnvironment{definition}{
+    \setlist[enumerate]{label=(\roman*), font=\switchOsf}
+}
+
+\AtBeginEnvironment{proposition}{
+    \setlist[enumerate]{label=(\roman*), font=\switchOsf}
+}
+
+\AtBeginEnvironment{theorem}{
+    \setlist[enumerate]{label=(\roman*), font=\switchOsf}
+}
+
+\AtBeginEnvironment{corollary}{
+    \setlist[enumerate]{label=(\roman*), font=\switchOsf}
+}
+
+\AtBeginEnvironment{assumption}{
+    \setlist[enumerate]{label=(\roman*), font=\switchOsf}
+}
+
+\AtBeginEnvironment{lemma}{
+    \setlist[enumerate]{label=(\roman*), font=\switchOsf}
+}
+
+\AtBeginEnvironment{proof}{
+    \setlist[enumerate]{label=(\roman*), font=\switchOsf}
+}
+
+% ********************************************************************
+% Floats Setup
+% ********************************************************************
+
+\setcounter{topnumber}{2} % Maximum number of floats in the top of a page
+\setcounter{bottomnumber}{1} % Maximum number of floats in the bottom of a page
+\setcounter{totalnumber}{3} % Maximum number of floats in a page
+\renewcommand{\topfraction}{0.7} % Maximum proportion of page filled with floats in top of page
+\renewcommand{\bottomfraction}{0.3} % Maximum proportion of page filled with floats in bottom of page
+\renewcommand{\textfraction}{0.2} % Minimum proportion of text page filled with text
+\renewcommand{\floatpagefraction}{0.8} % Minimum proportion of floats page filled with floats
+
+% \setlength{\textfloatsep}{20.0pt plus 2.0pt minus 4.0pt}
+% \setlength{\floatsep}{12.0pt plus 2.0pt minus 2.0pt}
+% \setlength{\intextsep}{20.0pt plus 2.0pt minus 4.0pt}
+
+
+%% ********************************************************************
+%%%% Biblatex font style
+%% ********************************************************************
+
+\AtBeginBibliography{\renewcommand{\makelabel}[1]{\switchOsf#1}}
+\appto{\citesetup}{\switchOsf}
+
+
+%% ********************************************************************
+%%%% Old style figure for various counters
+%% ********************************************************************
+
+\pretocmd{\theequation}{\switchOsf}{}{}
+\pretocmd{\thepart}{\switchOsf}{}{}
+\pretocmd{\theappendix}{\switchOsf}{}{}
+\pretocmd{\thechapter}{\switchOsf}{}{}
+\pretocmd{\thesection}{\switchOsf}{}{}
+\pretocmd{\thesubsection}{\switchOsf}{}{}
+\pretocmd{\thesubsubsection}{\switchOsf}{}{}
+\pretocmd{\theparagraph}{\switchOsf}{}{}
+\pretocmd{\thesubparagraph}{\switchOsf}{}{}
+
+
+%% ********************************************************************
+%%%% Datetime config
+%% ********************************************************************
+
+\RequirePackage[useregional]{datetime2}
+\newcommand{\monthyeardate}{%
+  \DTMenglishmonthname{\@dtm@month}, \@dtm@year
+}
+
+
+%% ********************************************************************
+%%%% Epigraph
+%% ********************************************************************
+
+\setlength{\epigraphrule}{0pt}
+\setlength{\epigraphwidth}{0.5\linewidth}
+
+
+% ********************************************************************
+% Tables of contents macros
+% ********************************************************************
+
+% \renewcommand\tableofcontents{%
+%     \if@twocolumn
+%       \@restonecoltrue\onecolumn
+%     \else
+%       \@restonecolfalse
+%     \fi
+%     \chapter*{\contentsname}%
+%     \@starttoc{toc}%
+%     \if@restonecol\twocolumn\fi
+%     }
+
+% \renewcommand\listoffigures{%
+%     \if@twocolumn
+%       \@restonecoltrue\onecolumn
+%     \else
+%       \@restonecolfalse
+%     \fi
+%     \chapter*{\listfigurename}%
+%     \@starttoc{lof}%
+%     \if@restonecol\twocolumn\fi
+%     }
+
+% \renewcommand\listoftables{%
+%     \if@twocolumn
+%       \@restonecoltrue\onecolumn
+%     \else
+%       \@restonecolfalse
+%     \fi
+%     \chapter*{\listtablename}%
+%     \@starttoc{lot}%
+%     \if@restonecol\twocolumn\fi
+%     }
+
+\defbibheading{partbibliography}[\bibname]{%
+  \part{#1}\markboth{\markstyle{#1}}{\markstyle{#1}}}
+
+\defbibheading{partbibintoc}[\bibname]{%
+  \addpart{#1}\markboth{\markstyle{#1}}{\markstyle{#1}}}
+
+\defbibheading{bibliography}[\bibname]{%
+  \ifbool{workspace@nochapters}{\section*{#1}}
+  {\chapter*{#1}}
+  \markboth{\markstyle{#1}}{\markstyle{#1}}}
+
+\defbibheading{bibintoc}[\bibname]{%
+  \ifbool{workspace@nochapters}{\addsec{#1}}
+  {\addchap{#1}}
+  \markboth{\markstyle{#1}}{\markstyle{#1}}}
+
+\defbibheading{bibnumbered}[\bibname]{%
+  \ifbool{workspace@nochapters}{\section{#1}}
+  {\chapter{#1}}
+  \markboth{\markstyle{#1}}{\markstyle{#1}}}
+
+\defbibheading{subbibliography}[\refname]{%
+  \ifbool{workspace@nochapters}{\subsection*{#1}}
+  {\section*{#1}}
+  \markboth{\markstyle{#1}}{\markstyle{#1}}}
+
+\defbibheading{subbibintoc}[\refname]{%
+  \ifbool{workspace@nochapters}{\subsection*{#1}
+    \addcontentsline{toc}{subsection}{#1}}
+  {\addsec{#1}}
+  \markboth{\markstyle{#1}}{\markstyle{#1}}}
+
+\defbibheading{subbibnumbered}[\refname]{%
+  \ifbool{workspace@nochapters}{\subsection{}{#1}}
+  {\section{#1}}
+  \markboth{\markstyle{#1}}{\markstyle{#1}}}
+
+\let\oldtableofcontents\tableofcontents
+\renewcommand{\tableofcontents}{
+  \begingroup
+  \hypersetup{hidelinks}
+  \microtypesetup{protrusion=false}
+  \oldtableofcontents
+  \markboth{\markstyle{\contentsname}}{\markstyle{\contentsname}}%
+  \microtypesetup{protrusion=true}
+  \endgroup
+}
+
+\let\oldlistoffigures\listoffigures
+\renewcommand{\listoffigures}{
+  \begingroup
+  \hypersetup{hidelinks}
+  \microtypesetup{protrusion=false}
+  \phantomsection
+  \oldlistoffigures
+  \markboth{\markstyle{\listfigurename}}{\markstyle{\listfigurename}}%
+  \microtypesetup{protrusion=true}
+  \endgroup
+}
+
+\let\oldlistoftables\listoftables
+\renewcommand{\listoftables}{
+  \begingroup
+  \hypersetup{hidelinks}
+  \microtypesetup{protrusion=false}
+  \phantomsection
+  \oldlistoftables
+  \markboth{\markstyle{\listtablename}}{\markstyle{\listtablename}}%
+  \microtypesetup{protrusion=true}
+  \endgroup
+}
+
+\renewcommand{\listofalgorithms}{
+  \begingroup
+  \hypersetup{hidelinks}
+  \microtypesetup{protrusion=false}
+  \phantomsection
+  \listoftoc[{\listofalgorithmsname}]{loa}
+  \markboth{\markstyle{\listofalgorithmsname}}{\markstyle{\listofalgorithmsname}}%
+  \microtypesetup{protrusion=true}
+  \endgroup
+}
+
+\renewcommand{\listoflistings}{
+  \begingroup
+  \hypersetup{hidelinks}
+  \microtypesetup{protrusion=false}
+  \phantomsection
+  \listoftoc[{\listofprogname}]{lol}
+  \markboth{\markstyle{\listofprogname}}{\markstyle{\listofprogname}}%
+  \microtypesetup{protrusion=true}
+  \endgroup
+}
+
+\let\oldprintnomenclature\printnomenclature
+\RenewDocumentCommand{\printnomenclature}{}{
+  \microtypesetup{protrusion=false}
+  \oldprintnomenclature
+  \markboth{\markstyle{\nomname}}{\markstyle{\nomname}}
+  \microtypesetup{protrusion=true}
+  }
+
+\let\oldprintglossary\printglossary
+\RenewDocumentCommand{\printglossary}{O{}}{
+  \microtypesetup{protrusion=false}
+  \phantomsection
+  \oldprintglossary[#1]
+  \markboth{\markstyle{\listofacronymsname}}{\markstyle{\listofacronymsname}}
+  \microtypesetup{protrusion=true}
+}
+
+\let\oldprintindex\printindex
+\RenewDocumentCommand{\printindex}{}{
+  \microtypesetup{protrusion=false}
+  \phantomsection
+  \oldprintindex
+  \markboth{\markstyle{\indexname}}{\markstyle{\indexname}}
+  \microtypesetup{protrusion=true}
+  }
+
+\let\oldprintbibliography\printbibliography
+\RenewDocumentCommand{\printbibliography}{O{}}{
+  \microtypesetup{protrusion=false}
+  \phantomsection
+  \oldprintbibliography[#1]
+  \microtypesetup{protrusion=true}
+}
+
+\NewDocumentCommand{\appendices}{}{
+  \ifbool{workspace@nochapters}{
+    \automark[subsection]{appendix}
+    \numberwithin{subsection}{appendix}
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+  }{
+    \automark[section]{appendix}
+    \numberwithin{section}{appendix}
+    \addtocontents{toc}{\protect\setcounter{tocdepth}{0}}
+  }
+  \chaptermark{\appendixname}
+  \sectionmark{\appendixname}
+  \ifbool{workspace@nochapters}{
+    \renewcommand{\section}{\appendix}\renewcommand{\sectionprefix}{\appendixname}}
+    {\renewcommand{\chapter}{\appendix}\renewcommand{\chapterprefix}{\appendixname}}
+  \oldappendix
+  \scr@ifundefinedorrelax{hypersetup}{}{\hypersetup{bookmarkstype=atoc}}%
+  \renewcommand{\theappendix}{\Alph{appendix}}
+  \renewcommand\thesection{\switchOsf\theappendix.\arabic{section}}
+}
+
+
+% ********************************************************************
+% Modify default marginline
+% ********************************************************************
+
+\let\komamarginline\marginline%
+\renewcommand{\marginline}[1]{
+    \komamarginline{\marginlinestyle#1}
+}
+
+%% ********************************************************************
+%%%% Old style figure for Ref style
+%% ********************************************************************
+
+\AtBeginDocument{%
+  \LetLtxMacro\oldref\ref
+  \renewcommand{\ref}[1]{
+  {\switchOsf\oldref{#1}}}
+
+  \LetLtxMacro\oldpageref\pageref
+  \renewcommand{\pageref}[1]{
+  {\switchOsf\oldpageref{#1}}}
+}
+
+\def\@setcref{\switchOsf\@@setcref{cref}}%
+\crefdefaultlabelformat{\switchOsf#2#1#3}

@@ -1,0 +1,10 @@
+headings_flag 1
+
+heading_prefix "{\\large\\sffamily\\bfseries\\noindent "
+heading_suffix "}\\nopagebreak\n"
+
+item_0 "\n \\item \\small \\normalfont "
+
+delim_0 " \\dotfill "
+delim_1 " \\dotfill "
+delim_2 " \\dotfill " 

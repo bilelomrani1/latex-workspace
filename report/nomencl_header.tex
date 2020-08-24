@@ -1,0 +1,20 @@
+%% ********************************************************************
+%%%% Nomenclature groups
+%% ********************************************************************
+
+\renewcommand{\nompreamble}{This is the preable of the nomenclature.}
+
+\renewcommand{\nomgroup}[1]{%
+    \itemsep\nomgroupstartsep%
+    \medskip
+    \ifthenelse{\equal{#1}{M}}{
+        \nomenclheader{Model}}{
+    \ifthenelse{\equal{#1}{P}}{
+        \nomenclheader{Probability}
+        \nomenclintertext{This is an intertext in the nomenclature}}{
+    \ifthenelse{\equal{#1}{S}}{
+        \nomenclheader{Sets}}{
+    }}}
+    \itemsep\nomitemsep%
+}
+

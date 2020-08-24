@@ -1,0 +1,3 @@
+[submodule "report/pygments-style-workspace"]
+	path = report/pygments-style-workspace
+	url = https://github.com/bilelomrani1/pygments-style-workspace.git

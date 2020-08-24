@@ -1,0 +1,32 @@
+% !TEX root = math_subfile.tex
+
+\chapter{Maths}
+
+\section{Equations}
+
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut,placerat ac, adipiscing vitae, felis.
+\begin{equation}
+    \sum_{k=1}^\infty \frac{1}{k^2} = \frac{\pi^2}{6}.
+\end{equation}
+Curabitur dictum gravida mauris. Nam arcu libero, nonummy eget, consectetuer id, vulputate a, magna. Donec vehicula augue eu neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpisegestas. Mauris ut leo.
+\begin{align*}
+    f(x) &= x(x-1)^2 \\
+    &= x(x^2-2x+1) \\
+    &= x^3-2x^2+x.
+\end{align*}
+
+\section{Theorems}
+
+\begin{theorem}
+    This is an important theorem.
+\end{theorem}
+\begin{proof}
+    The proof is left as an exercise.
+\end{proof}
+You can also define a restatable theorem. Useful for restating the theorem when the proofs are in the appendices.
+\begin{restatable}[Goldbach's conjecture]{theorem}{goldbach}
+    \label{thm:goldbach}
+    Every even integer greater than 2 can be expressed as the sum of two primes.
+\end{restatable}
+And then, we recall \cref{thm:goldbach}.
+\goldbach*

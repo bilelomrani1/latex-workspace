@@ -1,0 +1,15 @@
+% !TEX root = glossary_subfile.tex
+
+\chapter{Glossary, index \& nomenclature}
+
+\section{Glossary}
+
+The \Gls{computer} is an entry defined in the glossary. Use \texttt{glossary.tex} to define new entries. You can also define acronyms like \acrfull{fpsLabel} and refer to it with \verb|\acrlong| (\acrlong{fpsLabel}) or \verb|\acrshort| (\acrshort{fpsLabel}).
+
+\section{Index}
+
+Use the \verb|\index| macro to register a word in the index. For example, here we index the word index\index{index}. We can also create subentries\index{index!first subentry}\index{index!second subentry}\index{other entry}\index{last entry}.
+
+\section{Nomenclature}
+
+Use the \verb|\nomenclature| macro to add symbols to the nomenclature. Use the optional argument to specify a group. For instance, we can add the symbol $\Omega$\nomenclature[P]{$\Omega$}{Sample space} to the nomenclature. We can also add $\setN$\nomenclature[S]{$\setN$}{Set of the natural numbers} and $\setR$\nomenclature[S]{$\setR$}{Set of the real numbers}. You can customize the headers of the nomenclature by editing \texttt{nomencl\_header.tex}.

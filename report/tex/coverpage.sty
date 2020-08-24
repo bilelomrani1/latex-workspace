@@ -1,0 +1,154 @@
+% ********************************************************************
+% Coverpage initializer
+% ********************************************************************
+
+\newcommand\logos[1]{\def\@logos{#1}}
+\def\@logos{}
+\newcommand\institute[1]{\def\@institute{#1}}
+\def\@institute{}
+\newcommand\work[1]{\def\@work{#1}}
+\def\@work{}
+\newcommand\supervisor[1]{\def\@supervisor{#1}}
+\def\@supervisor{}
+
+
+% ********************************************************************
+% Coverpages
+% ********************************************************************
+
+\newcommand{\makecoverpage}{
+    \ifbool{workspace@nochapters}{}{\KOMAoptions{headings=openright}}
+    \KOMAoptions{parskip=no,twoside=false}
+    \newgeometry{bindingoffset=0mm, 
+                left=4cm, 
+                right=4cm, 
+                top=-1cm, 
+                bottom=2cm}
+
+    \begin{titlingpage}
+        \pretitle{
+            \begin{center}
+            \vspace*{\stretch{1.5}}
+            \ifx\@logos\empty
+            \else
+                \begin{tabular}[t]{c}
+                \@logos
+                \end{tabular}
+                \\ \vspace{0.8cm}
+            \fi
+            \ifx\@institute\empty
+            \else
+                {\scshape\LARGE \@institute \par}
+                \vspace*{0.3cm}
+                \rule{\widthof{\scshape\LARGE\@institute}+0.1\linewidth}{0.2 mm}\\
+            \fi
+            \vspace*{\stretch{0.5}}
+            {\scshape\usekomafont{subtitle}\vspace*{\stretch{1}}\@work\par}
+            \vspace*{\stretch{1}}
+            \rule{\linewidth}{0.2 mm} \\
+            \ifx\@subtitle\empty
+                \vspace*{0.6cm}
+            \else
+                \vspace*{0.8cm}
+            \fi
+            \usekomafont{title}
+        }
+        \posttitle{	
+            \ifx\@subtitle\empty
+            \else
+                {\scshape\usekomafont{subtitle} \vspace*{0.3cm}\par\@subtitle}
+            \fi
+            \vspace*{0.6cm}
+            \rule{\linewidth}{0.2 mm} \\
+            \end{center}
+        }
+        \preauthor{
+            \begin{center}
+            \ifx\@author\empty
+            \else
+                \usekomafont{author}
+                {\vspace*{\stretch{1}}\itshape\authorstring \\ \vspace*{\stretch{0.5}}}
+                \lineskip 0.5em%
+            \fi
+            \begin{tabular}[t]{c}
+        }
+        \postauthor{
+            \end{tabular}\par
+            \ifx\@supervisor\empty
+            \else
+                \usekomafont{author}
+                {\vspace*{\stretch{1}}\itshape \supervisedby \\ \vspace*{\stretch{0.5}}}
+                \lineskip 0.5em%
+                \begin{tabular}[t]{c}
+                \@supervisor
+                \end{tabular}\par
+            \fi
+            \end{center}
+            \vspace*{\stretch{3}}
+        }
+        \predate{
+            \begin{center}
+            \usekomafont{date}
+        }
+        \postdate{
+            \par\end{center}
+        }
+        \maketitle
+
+    \end{titlingpage}
+    \KOMAoptions{parskip=relative,twoside=\workspace@twoside}
+    \restoregeometry
+    \ifbool{workspace@nochapters}{}{\KOMAoptions{headings=\workspace@headings}}
+}
+
+\newcommand{\maketitlepage}{
+    \ifbool{workspace@nochapters}{}{\KOMAoptions{headings=openright}}
+	\pretitle{
+		\begin{center}
+		\usekomafont{title}
+	}
+	\posttitle{
+        \vspace*{1em}
+		\ifx\@subtitle\empty
+		\else
+			{\usekomafont{subtitle}
+			\par\@subtitle}
+            \vspace*{1em}
+		\fi
+		\ifx\@institute\empty
+		\else
+            \vspace*{1em}
+			{\par\normalfont\scshape\large\@institute}
+		\fi
+		\end{center}
+	}
+	\preauthor{
+		\begin{center}
+		\usekomafont{author}
+        \lineskip 0.5em%
+        \begin{tabular}[t]{c}
+	}
+	\postauthor{
+		\end{tabular}\par
+		\ifx\@supervisor\empty
+		\else
+			\usekomafont{author}
+			{\vspace*{0.6cm}\itshape\supervisedby\\\vspace*{0.6cm}}
+			\lineskip 0.5em%
+			\begin{tabular}[t]{c}
+			\@supervisor
+			\end{tabular}\par
+		\fi
+		\end{center}
+	}
+	\predate{
+		\vspace*{0.5em}
+		\begin{center}
+	}
+ 	\postdate{
+		\par\end{center}
+	}
+	\maketitle
+    \ifbool{workspace@nochapters}{}{\KOMAoptions{headings=\workspace@headings}}
+}
+

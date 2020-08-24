@@ -1,0 +1,191 @@
+\newif\iftx@liby \newif\iftx@tma % use Times math accents
+\newif\iftx@altnu
+\newif\iftx@minion \newif\iftx@libaltvw \newif\iftx@bv \newif\iftx@ut
+
+\DeclareOption{liby}{\tx@libytrue}
+
+\ProcessOptions*
+
+% Replace math latin alphabet to fix nu and v
+\DeclareSymbolFont{letters}{OML}{nxlmi}{m}{it}
+\SetSymbolFont{letters}{bold}{OML}{nxlmi}{b}{it}
+\DeclareFontSubstitution{OML}{nxlmi}{m}{it}
+
+% Restore MnSymbol Greek letters
+\DeclareSymbolFont{greekletters}    {OML}{MinionPro-TOsF} {m} {\Mn@Math@LetterShape}
+\SetSymbolFont{greekletters}  {bold}{OML}{MinionPro-TOsF} {eb}{\Mn@Math@LetterShape}
+\SetSymbolFont{greekletters}  {tabular}    {OML}{MinionPro-TOsF}  {m}{\Mn@Math@LetterShape}
+\SetSymbolFont{greekletters}  {boldtabular}{OML}{MinionPro-TOsF}  {eb}{\Mn@Math@LetterShape}
+
+\let\Mn@greek@list@upper\relax
+\newcommand\Mn@greek@list@upper{}
+\let\Mn@greek@list\relax
+\let\Mn@greek@list@lower\relax
+\newcommand\Mn@greek@list@lower{}
+\let\Mn@greek@list@upper\@gobble
+\let\Mn@greek@list@lower\@gobble
+\newcommand\Mn@greek@list{}
+\let\Mn@greek@letter\relax
+\newcommand*\Mn@greek@letter[3]{%
+\expandafter\DeclareMathSymbol
+\expandafter{\csname it#1\endcsname}{\mathord}{greekletters}{#2}%
+\expandafter\DeclareMathSymbol
+\expandafter{\csname up#1\endcsname}{\mathord}{greekletters}{#3}%
+\edef\@tempa{`\@car#1\@nil}%
+\edef\Mn@greek@list{\expandafter\noexpand\csname
+    Mn@greek@list@\ifnum\uccode\@tempa=\@tempa upper\else lower\fi\endcsname}%
+\expandafter\edef\Mn@greek@list{\Mn@greek@list,#1}%
+}
+\Mn@greek@letter{Gamma}         {'000}{'200}
+\Mn@greek@letter{Delta}         {'001}{'201}
+\Mn@greek@letter{Theta}         {'002}{'202}
+\Mn@greek@letter{Lambda}        {'003}{'203}
+\Mn@greek@letter{Xi}            {'004}{'204}
+\Mn@greek@letter{Pi}            {'005}{'205}
+\Mn@greek@letter{Sigma}         {'006}{'206}
+\Mn@greek@letter{Upsilon}       {'007}{'207}
+\Mn@greek@letter{Phi}           {'010}{'210}
+\Mn@greek@letter{Psi}           {'011}{'211}
+\Mn@greek@letter{Omega}         {'012}{'212}
+\Mn@greek@letter{alpha}         {'013}{'213}
+\Mn@greek@letter{beta}          {'014}{'214}
+\Mn@greek@letter{gamma}         {'015}{'215}
+\Mn@greek@letter{delta}         {'016}{'216}
+\Mn@greek@letter{zeta}          {'020}{'220}
+\Mn@greek@letter{eta}           {'021}{'221}
+\Mn@greek@letter{theta}         {'022}{'222}
+\Mn@greek@letter{iota}          {'023}{'223}
+\Mn@greek@letter{kappa}         {'024}{'224}
+\Mn@greek@letter{lambda}        {'025}{'225}
+\Mn@greek@letter{mu}            {'026}{'226}
+\Mn@greek@letter{nu}            {'027}{'227}
+\Mn@greek@letter{xi}            {'030}{'230}
+\Mn@greek@letter{pi}            {'031}{'231}
+\Mn@greek@letter{rho}           {'032}{'232}
+\Mn@greek@letter{sigma}         {'033}{'233}
+\Mn@greek@letter{tau}           {'034}{'234}
+\Mn@greek@letter{upsilon}       {'035}{'235}
+\Mn@greek@letter{phi}           {'036}{'236}
+\Mn@greek@letter{chi}           {'037}{'237}
+\Mn@greek@letter{psi}           {'040}{'240}
+\Mn@greek@letter{omega}         {'041}{'241}
+\Mn@greek@letter{varepsilon}    {'042}{'242}
+\Mn@greek@letter{vartheta}      {'043}{'243}
+\Mn@greek@letter{varpi}         {'044}{'244}
+\Mn@greek@letter{varrho}        {'045}{'245}
+\Mn@greek@letter{varsigma}      {'046}{'246}
+\Mn@greek@letter{varphi}        {'047}{'247}
+\Mn@greek@letter{varbeta}       {'260}{'250}
+\Mn@greek@letter{varkappa}      {'261}{'251}
+\Mn@greek@letter{backepsilon}   {'262}{'252}
+\Mn@greek@letter{varbackepsilon}{'263}{'253}
+\Mn@greek@letter{digamma}       {'264}{'254}
+\Mn@greek@letter{eth}           {'266}{'256}
+\let\Mn@greek@select\relax
+\newcommand*\Mn@greek@select[2]{%
+\expandafter\let\expandafter\Mn@greek@list\csname Mn@greek@list@#2\endcsname
+\@for\@tempa:=\Mn@greek@list\do{%
+    \expandafter\let\csname\@tempa\expandafter\endcsname
+    \csname#1\@tempa\endcsname
+}%
+}
+\let\Mn@greek@Upright\relax
+\newcommand*\Mn@greek@Upright{%
+\Mn@greek@select{up}{upper}%
+\Mn@greek@select{up}{lower}%
+}
+\let\Mn@greek@Italic\relax
+\newcommand*\Mn@greek@Italic{%
+\Mn@greek@select{it}{upper}%
+\Mn@greek@select{it}{lower}%
+}
+\let\Mn@greek@Mixed\relax
+\newcommand*\Mn@greek@Mixed{%
+\Mn@greek@select{up}{upper}%
+\Mn@greek@select{it}{lower}%
+}
+\Mn@load@greek
+
+\RequirePackage{stackengine,scalerel,scalefnt}
+\let\sumint\relax
+\DeclareMathOperator*{\sumint}{%
+\ThisStyle{\mathop{\ensurestackMath{\stackinset{c}{-1.9\LMpt}{c}{0pt}{%
+\rotatebox[origin=lb]{0}{$\SavedStyle\int$}}{\SavedStyle\partialvartsumint}}}}}
+
+% Create mathbb and mathscr font from shape, avoid using math alphabets
+
+% \DeclareFontFamily{U}{esstixscr}{\skewchar \font =45}
+% \DeclareFontShape{U}{esstixscr}{m}{n}{
+%      <-> esstixcal}{}
+
+\DeclareFontFamily{U}{BOONDOX-calo}{\skewchar\font=45 }
+\DeclareFontShape{U}{BOONDOX-calo}{m}{n}{
+  <-> s*[1.05] BOONDOX-r-calo}{}
+\DeclareFontShape{U}{BOONDOX-calo}{b}{n}{
+  <-> s*[1.05] BOONDOX-b-calo}{}
+
+\DeclareFontFamily{U}{px-math-ds}{\skewchar \font =45}% double-struck
+\DeclareFontShape{U}{px-math-ds}{m}{n}{
+      <-> pxr-ds}{}
+\DeclareFontShape{U}{px-math-ds}{b}{n}{
+   <-> pxb-ds}{}
+
+\RequirePackage{etoolbox}
+
+\newcommand\mathscr[1]{{
+    \mathchoice
+    {\mbox{\usefont{U}{BOONDOX-calo}{m}{n}#1}}
+    {\mbox{\usefont{U}{BOONDOX-calo}{m}{n}#1}}
+    {\mbox{\scalefont{0.7}\usefont{U}{BOONDOX-calo}{m}{n}#1}}
+    {\mbox{\scalefont{0.5}\usefont{U}{BOONDOX-calo}{m}{n}#1}}
+    \ifstrequal{#1}{A}{\kern1pt}{}
+    \ifstrequal{#1}{F}{\kern2pt}{}
+    \ifstrequal{#1}{I}{\kern1pt}{}
+    \ifstrequal{#1}{J}{\kern1pt}{}
+    \ifstrequal{#1}{K}{\kern1pt}{}
+    \ifstrequal{#1}{L}{\kern1pt}{}
+    \ifstrequal{#1}{P}{\kern1pt}{}
+    \ifstrequal{#1}{S}{\kern1pt}{}
+    \ifstrequal{#1}{T}{\kern2pt}{}
+    \ifstrequal{#1}{V}{\kern1pt}{}
+    \ifstrequal{#1}{W}{\kern1pt}{}
+    \ifstrequal{#1}{X}{\kern1pt}{}
+    \ifstrequal{#1}{Y}{\kern1pt}{}
+    }
+}
+\let\mathbb\relax
+\newcommand{\mathbb}[1]{{
+    \mathchoice
+    {\mbox{\usefont{U}{px-math-ds}{m}{n}#1}}
+    {\mbox{\usefont{U}{px-math-ds}{m}{n}#1}}
+    {\mbox{\scalefont{0.7}\usefont{U}{px-math-ds}{m}{n}#1}}
+    {\mbox{\scalefont{0.5}\usefont{U}{px-math-ds}{m}{n}#1}}
+    \ifstrequal{#1}{T}{\kern1pt}{}
+    \ifstrequal{#1}{V}{\kern1pt}{}
+    \ifstrequal{#1}{W}{\kern1pt}{}
+    \ifstrequal{#1}{Y}{\kern1pt}{}
+    }
+}
+\newcommand{\mathbbf}[1]{{
+    \mathchoice
+    {\mbox{\usefont{U}{px-math-ds}{b}{n}#1}}
+    {\mbox{\usefont{U}{px-math-ds}{b}{n}#1}}
+    {\mbox{\scalefont{0.7}\usefont{U}{px-math-ds}{b}{n}#1}}
+    {\mbox{\scalefont{0.5}\usefont{U}{px-math-ds}{b}{n}#1}}
+    \ifstrequal{#1}{T}{\kern1pt}{}
+    \ifstrequal{#1}{V}{\kern1pt}{}
+    \ifstrequal{#1}{W}{\kern1pt}{}
+    \ifstrequal{#1}{Y}{\kern1pt}{}
+    }
+}
+
+% Define open and close g
+
+% \newcommand{\openg}{\ensuremath{\text{\usefont{OML}{MinionPro-TOsF}{m}{n}\symbol{'267}}}}
+\newcommand{\closeg}{\ensuremath{\text{\usefont{OML}{MinionPro-TOsF}{m}{n}\symbol{'147}}}}
+
+% Replace the default g with closed one
+% \begingroup\lccode`~=`g \lowercase{\endgroup\def~}{\closeg}
+% \mathcode`g="8000
+\DeclareMathSymbol{g}{\mathalpha}{greekletters}{'147}
+

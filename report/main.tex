@@ -1,0 +1,96 @@
+% Import the preamble from preamble.tex
+\input{preamble.tex}
+
+% Just for the purpose of this guide...
+\usepackage{lipsum}
+\usepackage{blindtext}
+
+\begin{document}
+
+\renewcommand{\onlyinsubfile}[1]{}
+\renewcommand{\notinsubfile}[1]{#1}
+
+
+%% ********************************************************************
+%% ********************************************************************
+%%%% BEGINNING OF DOCUMENT
+%% ********************************************************************
+%% ********************************************************************
+
+%% Cover page
+\makecoverpage
+
+
+%% ********************************************************************
+%%%% Frontmatter
+%% ********************************************************************
+
+\frontmatter
+
+\include{tex/titleback/titleback}
+\include{tex/dedications/dedications}
+
+% Table of contents
+\tableofcontents
+
+% Glossary
+\printglossary[type=\acronymtype,title=\listofacronymsname,toctitle=\listofacronymsname]
+\printglossary
+
+% Nomenclature
+\printnomenclature
+
+%% ********************************************************************
+%%%% Main matter
+%% ********************************************************************
+
+\mainmatter
+
+\part{Basic use cases}
+\include{tex/text/text}
+\include{tex/figures-tables/figures-tables}
+\include{tex/math/math}
+\include{tex/algorithms_code/algorithms_code}
+
+\part{Advanced use cases}
+\include{tex/pythontex/pythontex}
+\include{tex/glossary/glossary}
+
+
+%% ********************************************************************
+%%%% End of matter
+%% ********************************************************************
+
+% {
+%     \backmatter
+%     \cleardoublepage
+%     \printbibliography
+% }
+
+
+%% ********************************************************************
+%%%% Appendix
+%% ********************************************************************
+
+\appendices
+\addpart{Appendices}
+\include{tex/appendix/appendix}
+
+
+%% ********************************************************************
+%%%% Backmatter
+%% ********************************************************************
+
+{
+    \backmatter
+    \printindex
+}
+
+
+%% ********************************************************************
+%% ********************************************************************
+%%%% END OF DOCUMENT
+%% ********************************************************************
+%% ********************************************************************
+
+\end{document}

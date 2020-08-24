@@ -1,0 +1,154 @@
+% ********************************************************************
+%%% Cleveref options
+% ********************************************************************
+
+\PassOptionsToPackage{capitalize,noabbrev}{cleveref}
+
+% ********************************************************************
+%%% Bibliography options
+% ********************************************************************
+
+\PassOptionsToPackage{
+    style=trad-abbrv,
+    citestyle=numeric,
+    sorting=nyt,
+    maxnames=2,
+    backref=false,
+    doi=false,
+    isbn=false,
+    url=false,
+    hyperref=true,
+    language=auto,
+    backend=biber
+}{biblatex}
+
+% ********************************************************************
+%%% Base class file
+% ********************************************************************
+
+% Create \classopts only if it didn't already exist
+\providecommand\classopts{}
+\documentclass[
+    baseclass=scrbook,
+    fontsize=11pt,
+    english,
+    minionpro,
+    headings=openany,
+    \classopts
+]{workspace}
+
+
+% ********************************************************************
+%%% Page layout
+% ********************************************************************
+
+% Use either the KOMAscript options for automatic adjustements or the
+% geometry options for more control
+
+\KOMAoptions{
+    BCOR=0mm,
+    DIV=8,
+    paper=a4
+}
+
+% \geometry{
+%     paper=a4paper,
+%     width=13cm,
+%     bottom=4cm,
+%     top=2.5cm,
+%     bindingoffset=0mm,
+%     heightrounded,
+%     footskip=40pt,
+%     headsep=20pt+3pt,
+%     headheight=22pt,
+%     includehead,
+%     includefoot,
+%     marginparwidth=2.5cm,
+%     marginparsep=0.5cm
+% }
+
+\recalctypearea
+
+
+% ********************************************************************
+%%% Coverpage infos
+% ********************************************************************
+
+\usepackage{tex/coverpage}
+
+\title{\LaTeX{} workspace}
+\subtitle{Help guide \& Gallery}
+\work{Report}
+\author{\bfseries Bilel \textsc{Omrani} \\ École Centrale de Lyon}
+\institute{École Centrale de Lyon}
+\logos{
+    \includegraphics[width=0.25\textwidth]{logos/logo-ecl-carre-quadri-vectoriel.pdf}
+}
+\supervisor{}
+
+% ********************************************************************
+%%% Metadata
+% ********************************************************************
+
+\hypersetup{
+    pdftitle={},
+    pdfauthor={},
+    pdfkeywords={}
+}
+
+% ********************************************************************
+%%% Bibliography files
+% ********************************************************************
+
+\addbibresource{bib/bibliography.bib}
+
+% ********************************************************************
+%%% Graphics path
+% ********************************************************************
+
+\graphicspath{{figs/}}
+
+% ********************************************************************
+%%% SI options
+% ********************************************************************
+
+\sisetup{
+    round-mode=places,
+    round-precision=3,
+    detect-all,
+    inter-unit-product=\ensuremath{{}\cdot{}},
+    group-minimum-digits=4,
+    table-text-alignment=center
+}
+
+% ********************************************************************
+%%% TikZ libraries
+% ********************************************************************
+
+\usetikzlibrary{
+    % arrows.meta,
+    % shapes,
+    % positioning,
+    % decorations.markings,
+    % decorations.pathmorphing,
+    % decorations.pathreplacing,
+    % calc,
+    % patterns,
+    % automata
+}
+
+% ********************************************************************
+%%% PythonTeX custom execs
+% ********************************************************************
+
+\ifisprint
+\begin{pythontexcustomcode}[begin]{py}
+import matplotlib.pyplot as plt
+plt.style.use("palettes/palette-bw.mplstyle")
+\end{pythontexcustomcode}
+\else
+\begin{pythontexcustomcode}[begin]{py}
+import matplotlib.pyplot as plt
+plt.style.use("palettes/palette-color.mplstyle")
+\end{pythontexcustomcode}
+\fi

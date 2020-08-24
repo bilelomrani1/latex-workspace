@@ -1,0 +1,76 @@
+% !TEX root = pythontex_subfile.tex
+
+\chapter{Python\TeX{} integration}
+
+\section{Console}
+
+Use the \texttt{pyconsole} environment to interactively show results in a Python console.
+
+\begin{pyconsole}
+1+2
+\end{pyconsole}
+Other programming languages are supported, check the Python\TeX{} documentation.
+
+\section{Automatic figure generation}
+
+\Cref{fig:automatic-figure} is automatically built from \texttt{create\_figure.py} and rendered using \LaTeX.
+
+\begin{pycode}
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+
+from scripts.example.create_figure import create_figure
+pytex.add_dependencies("scripts/example/create_figure.py")
+
+mpl.rcParams.update({
+    "font.size":           pytex.context.normalsize,
+    "figure.subplot.left": 0,
+    "figure.subplot.right":0.86,
+    "figure.figsize":      (pytex.pt_to_in(pytex.context['textwidth']),
+                            0.37*pytex.pt_to_in(pytex.context['textwidth']))
+})
+
+info = create_figure("../data/winequality-red.csv")
+pytex.add_dependencies("../data/winequality-red.csv")
+
+plt.savefig("figs/test.pgf")
+pytex.add_created("figs/test.pgf")
+\end{pycode}
+
+\begin{figure}[htbp]
+    \centering
+    \IfFileExists{figs/test.pgf}{\input{figs/test.pgf}}{\missingfigure{figs/test.pgf}}
+    \caption{Figure automatically generated from \texttt{create\_figure.py}}
+    \label{fig:automatic-figure}
+\end{figure}
+
+Use the \texttt{pysub} environment to get values from Python to \LaTeX.
+\begin{pysub}
+Here $a= \num{ !{info["coeff"]} }$ and $b = \num{ !{info["intercept"]}}$.
+\end{pysub}
+Here is an equation that we would like to reference in the plot:
+\begin{equation}
+    y = a x + b.
+    \label{eq:test}
+\end{equation}
+
+\section{Automatic table generation}
+
+The following table is generated automatically from \texttt{create\_table.py} using Python\TeX{} integration.
+
+\begin{pycode}
+from scripts.example.create_table import create_table
+pytex.add_dependencies("scripts/example/create_table.py")
+
+info, _ = create_table(None,
+                       column_format="RR",
+                       width=r"0.5\\linewidth",
+                       caption=r"Table automatically generated from \texttt{create\_table.py}",
+                       label="tab:test-table",
+                       buf="tables/test.tex",
+                       show_index=False,
+                       na_rep='na')
+pytex.add_created("tables/test.tex")
+\end{pycode}
+
+\inputsafe{tables/test}

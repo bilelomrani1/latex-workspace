@@ -1,0 +1,277 @@
+%% ********************************************************************
+%%%% Text Macros
+%% ********************************************************************
+
+\defasforeign[ie]{i.e.}
+\defasforeign[eg]{e.g.}
+
+
+% ********************************************************************
+% Maths macros
+% ********************************************************************
+
+% Commands
+\newcommand{\converge}[1]{\ensuremath{\xrightarrow{#1}}}
+\newcommand*{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand*{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\eqdef}{\triangleq}
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator{\epi}{epi}
+\DeclareMathOperator*{\supp}{Supp}
+\DeclareMathOperator*{\proj}{proj}
+\DeclareMathOperator*{\graph}{Gr}
+\DeclareMathOperator{\Cyl}{Cyl}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\KL}{KL}
+\DeclareMathOperator{\D}{D}
+\newcommand{\setZ}{\mathbb{Z}}
+\newcommand{\setR}{\mathbb{R}}
+\newcommand{\extR}{\overline{\setR}}
+\newcommand{\setC}{\mathbb{C}}
+\newcommand{\setQ}{\mathbb{Q}}
+\newcommand{\setK}{\mathbb{K}}
+\newcommand{\setP}{\mathbb{P}}
+\newcommand{\setN}{\mathbb{N}}
+\newcommand{\card}[1]{\left\lvert#1\right\rvert}
+\newcommand{\indicator}[1]{\ensuremath{\mathds{1}_{#1}}}
+\newcommand{\compl}[1]{\ensuremath{#1^{c}}}
+
+% Differential
+\NewDocumentCommand{\diff}{O{}}{
+  \ifthenelse{\equal{#1}{}}{\mathop{}\!\mathup{d}}
+    {\mathop{}\!\mathup{d^#1}}
+}
+\NewDocumentCommand{\dd}{O{t} O{} m}{
+    \ifthenelse{\equal{#2}{}}{\frac{\diff#3}{\diff#1}}
+    {\frac{\diff[#2]#3}{\diff#1^{#2}}}
+}
+\NewDocumentCommand{\ddp}{O{t} O{} m}{
+    \ifthenelse{\equal{#2}{}}{\frac{\partial#3}{\partial#1}}
+    {\frac{\partial[#2]#3}{\partial#1^{#2}}}
+}
+
+% ********************************************************************
+% Misc maths
+% ********************************************************************
+
+\newcommand{\mathbrace}[1]{\pbox[t]{\linewidth}{\scriptsize\relax\ifvmode\centering\fi#1}}
+
+\ifthenelse{\boolean{workspace@minionpro}}{
+    \let\hbar\relax
+    \newcommand{\hbar}{\raisebox{0.75ex}{\mbox{\usefont{OMX}{MnSymbolE}{m}{n}\symbol{'322}}}\mkern-9mu h}}{}
+
+% Better \setminus
+\newcommand{\mysetminusD}{\hbox{\tikz{\draw[line width=0.6pt,line cap=round] (3pt,0) -- (0,6pt);}}}
+\newcommand{\mysetminusT}{\mysetminusD}
+\newcommand{\mysetminusS}{\hbox{\tikz{\draw[line width=0.45pt,line cap=round] (2pt,0) -- (0,4pt);}}}
+\newcommand{\mysetminusSS}{\hbox{\tikz{\draw[line width=0.4pt,line cap=round] (1.5pt,0) -- (0,3pt);}}}
+\let\setminus\relax
+\newcommand{\setminus}{\mathbin{\mathchoice{\mysetminusD}{\mysetminusT}{\mysetminusS}{\mysetminusSS}}}
+
+\newcommand{\subt}[1] {\ensuremath{_{\text{#1}}}}
+\newcommand{\supt}[1] {\ensuremath{^{\text{#1}}}}
+\newcommand*{\eqphantom}{\phantom{{}={}}}
+\newcommand\restr[2]{{\left.\kern-\nulldelimiterspace#1\right|_{#2}}}
+\newcommand\overarc[1]{\ThisStyle{%
+  \setbox0=\hbox{$\SavedStyle#1$}%
+  \stackon[.5pt]{\SavedStyle#1}{%
+  \rotatebox{90}{$\SavedStyle\stretchto{)}{.95\wd0}$}}}}
+
+
+% ********************************************************************
+% Table macros
+% ********************************************************************
+
+\RequirePackage{letltxmacro}
+\RequirePackage{tabularx}
+\RequirePackage{xparse}
+\RequirePackage{etoolbox}
+
+\LetLtxMacro{\thetabularx}{\tabularx}        % save original tabularx env 
+\LetLtxMacro{\endthetabularx}{\endtabularx}  % 
+
+\RenewDocumentEnvironment{tabularx}{O{1.2}mm}
+{\renewcommand{\arraystretch}{#1}\thetabularx{#2}{#3}}
+{\endthetabularx}
+
+\newcolumntype{Y}{}
+\def\tabularxycolumn#1{m{#1}}
+\def\TX@newycol{\newcol@{Y}[0]}
+\patchcmd\TX@endtabularx
+  {\expandafter\TX@newcol}%
+  {\expandafter\TX@newycol\expandafter{\tabularxycolumn{\TX@col@width}}%
+   \expandafter\TX@newcol}
+  {}
+  {}
+\patchcmd\TX@endtabularx
+  {\def\NC@rewrite@X}%
+  {\def\NC@rewrite@Y{\NC@rewrite@X}%
+   \def\NC@rewrite@X}
+  {}
+  {}
+
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+\newcolumntype{T}[1]{>{\raggedleft\arraybackslash}p{#1}}
+\newcolumntype{U}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{Z}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\newcommand{\mcx}[2]{\multicolumn{#1}{>{\hsize=\dimexpr#1\hsize+#1\tabcolsep+#1\tabcolsep\relax}c}{#2}}
+
+% Multirows
+\newcommand{\mrx}[2]{\multirow{#1}[3]{*}{#2}}
+
+% Heads
+\renewcommand*{\thead}[1]{\theadstyle#1}
+
+
+%% ********************************************************************
+%%%% Custom Algorithmic macros
+%% ********************************************************************
+
+\MakeRobust{\Call}
+\newcommand{\algmargin}{\the\ALG@thistlm}
+\algnewcommand{\StateLong}[1]{\State%
+    \parbox[t]{\dimexpr\linewidth-\algmargin}{\strut\hangindent=\algorithmicindent \hangafter=1 #1\strut}}
+\newcommand{\Let}[2]{\State #1 $\gets$ #2}
+\newcommand{\algorithmicelsif}{\algorithmicelse\ \algorithmicif}
+\newcommand{\algorithmicendif}{\algorithmicend\ \algorithmicif}
+\newcommand{\algorithmicendfor}{\algorithmicend\ \algorithmicfor}
+\newcommand{\algorithmicendwhile}{\algorithmicend\ \algorithmicwhile}
+\newcommand{\algorithmicendloop}{\algorithmicend\ \algorithmicloop}
+\newcommand{\algorithmicprint}{\textbf{print}\ }
+\newcommand{\algorithmictrue}{\textbf{true}}
+\newcommand{\algorithmicfalse}{\textbf{false}}
+\newcommand{\algorithmicwith}{\textbf{with}}
+\newcommand{\algorithmicendwith}{\algorithmicend\ \algorithmicwith}
+
+\algblock{With}{EndWith}
+\algcblock[With]{With}{Else}{EndWith}
+
+\algblockdefx[With]{With}{EndWith}%
+   [2][]{\algorithmicwith\ #2 \algorithmicdo}
+   [1][]{\algorithmicendwith}
+
+\algcblockdefx[Else]{With}{Else}{EndWith}
+    [1][]{\algorithmicelse}
+    [1][]{\algorithmicendwith}
+
+
+% ********************************************************************
+% TikZ macros
+% ********************************************************************
+
+%%%% Scale tikz picture to length
+
+\RequirePackage{environ}
+\RequirePackage{tikz}
+
+\newsavebox{\measure@tikzpicture}
+\NewEnviron{tikzpicturewidth}[1]{%
+  \def\tikzxscale{1}\begin{lrbox}{\measure@tikzpicture}%
+  \BODY
+  \end{lrbox}%
+  \pgfmathparse{#1/\wd\measure@tikzpicture}%
+  \edef\tikzxscale{\pgfmathresult}%
+  \BODY
+}
+\NewEnviron{tikzpictureheight}[1]{%
+  \def\tikzyscale{1}\begin{lrbox}{\measure@tikzpicture}%
+  \BODY
+  \end{lrbox}%
+  \pgfmathparse{#1/\ht\measure@tikzpicture}%
+  \edef\tikzyscale{\pgfmathresult}%
+  \BODY
+}
+
+
+%% ********************************************************************
+%%%% TODO macros
+%% ********************************************************************
+
+\if@todonotes@disabled
+\newcommand{\fixtext}[2]{}
+\newcommand{\fixsection}[2]{}
+\else
+\newcommand{\fixtext}[2]{\colorbox{white!70!purple}{#1}\todo[linecolor=white!20!purple, bordercolor=white!20!purple,backgroundcolor=white!20!purple, textcolor=white]{#2}}
+\newcommand{\fixsection}[1]{\todo[linecolor=white!20!violet, bordercolor=white!20!violet, noline,
+    backgroundcolor=white!20!violet,textcolor=white]{#1}}
+\fi
+
+
+% ********************************************************************
+% Custom Box
+% ********************************************************************
+
+\definecolor{bg_code}{RGB}{245,245,245}
+\definecolor{bg_note}{RGB}{245,245,245}
+\definecolor{text_note}{RGB}{30,30,30}
+\definecolor{bg_border_line_note}{RGB}{201,201,201}
+
+\newtcolorbox{background}{%
+  breakable,
+  enhanced jigsaw,
+  boxrule=0pt,
+  colback=bg_note,
+  fonttitle={\bfseries},
+  attach title to upper,
+  right=10pt,
+  left=10pt,
+  top=7pt,
+  bottom=7pt,
+  frame hidden,
+  before skip=2ex plus 0.1ex minus 0.1ex,
+  after skip=2ex plus 0.1ex minus 0.1ex,
+  baseline={\tcb@height-2\kvtcb@boxsep+\baselineskip-2\lineskip}
+}
+
+\newtcolorbox{notes}[1][\notesname]{%
+  breakable,
+  enhanced jigsaw,
+  % borderline west={5pt}{0pt}{bg_border_line_note},
+  boxrule=0pt,
+  fonttitle={\bfseries},
+  coltitle={text_note},
+  colback=bg_note,
+  coltext=text_note,
+  title={#1~---\ },
+  attach title to upper,
+  right=10pt,
+  left=10pt,
+  top=7pt,
+  bottom=7pt,
+  arc=4pt,
+  frame hidden,
+  before skip=2ex plus 0.1ex minus 0.1ex,
+  after skip=2ex plus 0.1ex minus 0.1ex,
+  baseline={\tcb@height-2\kvtcb@boxsep+\baselineskip-2\lineskip}
+}
+
+
+% ********************************************************************
+% Minted Box
+% ********************************************************************
+
+\newtcblisting{code}[1]{%
+  listing engine=minted,
+  minted style=workspace,
+  minted language=#1,
+  minted options={fontsize=\small,breaklines,numbersep=3mm,obeytabs=true,tabsize=4},
+  listing only,
+  breakable,
+  enhanced jigsaw,
+  boxrule=0pt,
+  colback=bg_note,
+  right=10pt,
+  left=15pt,
+  top=7pt,
+  bottom=7pt,
+  frame hidden,
+  before skip=0.2ex plus 0.1ex minus 0.1ex,
+  after skip=0.2ex plus 0.1ex minus 0.1ex,
+  enhanced
+}

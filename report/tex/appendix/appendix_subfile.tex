@@ -1,0 +1,13 @@
+\documentclass[main.tex]{subfiles}
+
+% Command executed only if subfile compiled separately
+\onlyinsubfile{
+    \setpythontexworkingdir{../..}
+}
+
+% Macros executed only if compiled from the main
+\notinsubfile{}
+
+\begin{document}
+\input{appendix}
+\end{document}

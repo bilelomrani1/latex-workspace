@@ -1,0 +1,41 @@
+% !TEX root = algorithms_code_subfile.tex
+
+\chapter{Algorithms \& code blocks}
+
+\section{Algorithms}
+
+Use the \verb|algorithm| environment to display algorithms in pseudocode. 
+A list of algorithms can be generated using the macro \verb|\listofalgorithms|.
+
+\begin{algorithm}
+  \caption{Counting mismatches between two packed DNA strings
+    \label{alg:packed-dna-hamming}}
+  \begin{algorithmic}[0]
+    \Function{Distance}{$x, y$}
+      \Let{$\delta$}{$0$}
+      \For{$i \gets 1 \textrm{ to } n$}
+        \If{$x_i \oplus y_i \neq 0$} \Comment{$\oplus$: bitwise exclusive-or}
+          \Let{$\delta$}{$\delta + 1$}
+        \EndIf
+      \EndFor
+      \State \Return{$\delta$}
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+\section{Code blocks}
+
+You can use \mintinline{latex}{\mintinline{latex}{$a+b$}} to highlight source code inline. Use the \texttt{code} environment to display a code block. 
+A list of listings can be generated using the macro \verb|\listoflistings|.
+
+\begin{listing}[htbp]
+\begin{code}{python}
+class Person:
+    def __init__(self, name="John", age=22):
+        self.name = name
+        self.age = age
+\end{code}
+\caption{Code snippet}
+\label{code:snippet}
+\end{listing}
+
