@@ -39,7 +39,7 @@ pytex.add_created("figs/test.pgf")
 
 \begin{figure}[htbp]
     \centering
-    \IfFileExists{figs/test.pgf}{\input{figs/test.pgf}}{\missingfigure{figs/test.pgf}}
+    \inputsafe{figs/test.pgf}
     \caption{Figure automatically generated from \texttt{create\_figure.py}}
     \label{fig:automatic-figure}
 \end{figure}
